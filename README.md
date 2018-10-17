@@ -1,4 +1,3 @@
-# arduinoSlider
 # Arduino Slider
 
 # Описание оборудования
