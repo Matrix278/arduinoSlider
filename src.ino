@@ -136,7 +136,7 @@ if(stateNum == 1){
 // ==             Задача 2. Движение от края до края          ==
 // =============================================================
 if(stateNum == 2){
-  while(stopperForSecond < 1){
+  if(stopperForSecond < 1){
      stopperForSecond++;
      analogWrite(enablePin,0);
      digitalWrite(controlPin1, LOW);
@@ -267,12 +267,12 @@ if(stateNum == 5){
     int controlPin2Side;
     int valuePotPinFive;
     int valuePotDirFive;
-    while(stopperForFifth < 1){
+    if(stopperForFifth < 1){
      stopperForFifth++;
      analogWrite(enablePin,0);
      digitalWrite(controlPin1, LOW);
      digitalWrite(controlPin2, LOW);
-  }
+    }
   switchStateForLeft = digitalRead(switchPinLeft);
   switchStateForRight = digitalRead(switchPinRight);
   if(switchStateForLeft == HIGH || switchStateForRight == HIGH){
