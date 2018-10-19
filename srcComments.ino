@@ -117,7 +117,7 @@ if(stateNum == 1){
   switchStateForRight = digitalRead(switchPinRight);
   
   if(stopper == 0){
-    value = map(400, 0, 500, 0, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+    value = map(400, 0, 500, 0, 104); // Значение карты 0-1023 - 0-255 (PWM)
     analogWrite(enablePin, value);
     digitalWrite(controlPin1, controlPin1Side);
     digitalWrite(controlPin2, controlPin2Side);
@@ -150,9 +150,9 @@ if(stateNum == 2){
   lcd.setCursor(0, 1);
   lcd.print("                 ");
   valuePotPin = analogRead(potPin);
-  valuePotPin = map(valuePotPin, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+  valuePotPin = map(valuePotPin, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (PWM)
   valuePotDir = analogRead(potDir);
-  valuePotDir = map(valuePotDir, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+  valuePotDir = map(valuePotDir, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (PWM)
   analogWrite(enablePin, valuePotPin);
   lcd.setCursor(0, 1);
   if(valuePotDir < 5){
@@ -193,9 +193,9 @@ if(stateNum == 3){
   lcd.setCursor(0, 1);
   lcd.print("                 ");
   valuePotPin = analogRead(potPin);
-  valuePotPin = map(valuePotPin, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+  valuePotPin = map(valuePotPin, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (PWM)
   valuePotDir = analogRead(potDir);
-  valuePotDir = map(valuePotDir, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+  valuePotDir = map(valuePotDir, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (PWM)
   analogWrite(enablePin, valuePotPin);
   lcd.setCursor(0, 1);
   if(valuePotDir < 5){
@@ -226,9 +226,9 @@ if(stateNum == 4){
   lcd.setCursor(0, 1);
   lcd.print("                 ");
   valuePotPin = analogRead(potPin);
-  valuePotPin = map(valuePotPin, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+  valuePotPin = map(valuePotPin, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (PWM)
   valuePotDir = analogRead(potDir);
-  valuePotDir = map(valuePotDir, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+  valuePotDir = map(valuePotDir, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (PWM)
   analogWrite(enablePin, valuePotPin);
   lcd.setCursor(0, 1);
   if(valuePotDir < 5){
@@ -284,9 +284,9 @@ if(stateNum == 5){
     lcd.setCursor(0, 1);
     lcd.print("                 ");
     valuePotPinFive = analogRead(potPin);
-    valuePotPinFive = map(valuePotPinFive, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+    valuePotPinFive = map(valuePotPinFive, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (PWM)
     valuePotDirFive = analogRead(potDir);
-    valuePotDirFive = map(valuePotDirFive, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+    valuePotDirFive = map(valuePotDirFive, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (PWM)
     analogWrite(enablePin, valuePotPinFive);
     lcd.setCursor(0, 1);
     if(valuePotDirFive < 5){
@@ -324,7 +324,7 @@ if(stateNum == 7){
   int valuePotDirForSeventh;
 
   valuePotDirForSeventh = analogRead(potDir);
-  valuePotDirForSeventh = map(valuePotDirForSeventh, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+  valuePotDirForSeventh = map(valuePotDirForSeventh, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (PWM)
   delay(100);
   lcd.setCursor(0, 1);
   lcd.print("                 ");
@@ -371,7 +371,7 @@ if(stateNum == 8){
   int valuePotDirForEight;
 
   valuePotDirForEight = analogRead(potDir);
-  valuePotDirForEight = map(valuePotDirForEight, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+  valuePotDirForEight = map(valuePotDirForEight, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (PWM)
   delay(100);
   lcd.setCursor(0, 1);
   lcd.print("                 ");
@@ -420,9 +420,9 @@ if(stateNum == 9){
   lcd.setCursor(0, 1);
   lcd.print("                 ");
   RC1 = analogRead(potPin);
-  RC1 = map(RC1, 0, 1023, -104, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+  RC1 = map(RC1, 0, 1023, -104, 104); // Значение карты 0-1023 - 0-255 (PWM)
   valueFor9First = analogRead(potPin);
-  valueFor9First = map(valueFor9First, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+  valueFor9First = map(valueFor9First, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (PWM)
   if(RC1 < -92){
     RC1 = -100;
   }else if(RC1 > 92){
@@ -485,7 +485,7 @@ if(stateNum == 9){
 // =============================================================
 if(stateNum == 10){
    motorSpeed=analogRead(potPin);
-   motorSpeed = map(motorSpeed, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+   motorSpeed = map(motorSpeed, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (PWM)
    if(motorSpeed < 5){
     motorSpeed = 0;
    }else if(motorSpeed > 95){
@@ -506,7 +506,7 @@ if(stateNum == 11){
    lcd.setCursor(0, 1);
    lcd.print("                 ");
    value = analogRead(potDir);      // Чтение и сохранение аналогового значения с потенциометра
-   value = map(value, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+   value = map(value, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (PWM)
    lcd.setCursor(0, 1);
    if(value < 0){
     value = 0;
@@ -524,12 +524,12 @@ if(stateNum == 11){
 // =============================================================
 if(stateNum == 12){
    valueFor12First = analogRead(potDir);          // Чтение и сохранение аналогового значения с потенциометра
-   valueFor12First = map(valueFor12First, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+   valueFor12First = map(valueFor12First, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (PWM)
    delay(200);
    lcd.setCursor(0, 1);
    lcd.print("                  ");
    valueFor12Second = analogRead(potDir);          // Чтение и сохранение аналогового значения с потенциометра
-   valueFor12Second = map(valueFor12Second, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+   valueFor12Second = map(valueFor12Second, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (PWM)
 
    differenceFor12 = valueFor12First-valueFor12Second;
    //Закоментированы строчки которые, крутят мотор в ту сторону которая показана
@@ -554,7 +554,7 @@ if(stateNum == 12){
 // =============================================================
 if(stateNum == 13){
    valueFor13First = analogRead(potPin);          // Чтение и сохранение аналогового значения с потенциометра
-   valueFor13First = map(valueFor13First, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+   valueFor13First = map(valueFor13First, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (PWM)
    if(valueFor13First < 5){
     valueFor13First = 0;
    }else if(valueFor13First > 95){
@@ -564,7 +564,7 @@ if(stateNum == 13){
    lcd.setCursor(0, 1);
    lcd.print("                  ");
    valueFor13Second = analogRead(potPin);          // Чтение и сохранение аналогового значения с потенциометра
-   valueFor13Second = map(valueFor13Second, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+   valueFor13Second = map(valueFor13Second, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (PWM)
    if(valueFor13Second < 5){
     valueFor13Second = 0;
    }else if(valueFor13Second > 95){
@@ -597,7 +597,7 @@ if(stateNum == 14){
     lcd.setCursor(0, 1);
     lcd.print(valueFor15First);
    valueFor15First = analogRead(potDir);          // Чтение и сохранение аналогового значения с потенциометра
-   valueFor15First = map(valueFor15First, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+   valueFor15First = map(valueFor15First, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (PWM)
     valueFor15First = 0;
    }else if(valueFor15First > 92){
     valueFor15First = 100;
@@ -655,7 +655,7 @@ if(stateNum == 15){
   switchStateForLeft = digitalRead(switchPinLeft);
   switchStateForRight = digitalRead(switchPinRight);
   valueFor16First = analogRead(potDir);          // Чтение и сохранение аналогового значения с потенциометра
-  valueFor16First = map(valueFor16First, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+  valueFor16First = map(valueFor16First, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (PWM)
   if(valueFor16First < 3){
     valueFor16First = 0;
   }else if(valueFor16First > 99){
@@ -735,7 +735,7 @@ if(stateNum == 16){
     int V2 = 55;
     int valuePotDirSix;
     valuePotDirSix = analogRead(potDir);
-    valuePotDirSix = map(valuePotDirSix, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (ШИМ)
+    valuePotDirSix = map(valuePotDirSix, 0, 1023, -5.5, 104); // Значение карты 0-1023 - 0-255 (PWM)
     if(valuePotDirSix < 5){
       valuePotDirSix = 0;
     }else if(valuePotDirSix > 95){
