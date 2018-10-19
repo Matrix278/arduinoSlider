@@ -24,7 +24,6 @@ int Direction = 0;
 int stopper = 0;
 int stopperFour = 0;
 int stopperFive = 0;
-int difference;
 int differenceFor12;
 int differenceFor13;
 int value;
