@@ -24,6 +24,7 @@ int Direction = 0;//Направление мотора
 int stopper = 0;//Стоппер для задания "Движения к краю"
 int stopperFour = 0;//Стоппер для задания "Движение к ближайшему краю"
 int stopperFive = 0;//Стоппер для задания "Центровка"
+int difference;//НЕНУЖНАЯ ПЕРЕМЕННАЯ
 int differenceFor12;//Различие переменных для "Индикации направления движения"
 int differenceFor13;//Различие переменных для "Индикации ускорения тележки"
 int value;//Данные потенциометра для "Движение к краю"
@@ -50,13 +51,31 @@ int testRightForSixteen = 0;//Переменная для проверки на�
 int testLeftForSixteen = 0;//Переменная для проверки нажатия левой кнопки для задания "Тестирование датчиков"
 int errorStateForSixteen = 0;//Ошибка для задания "Тестирование датчков"
 int progress = 0;
+int soundStopperForFirst = 0;
+int soundStopperForSecond = 0;
+int soundStopperForThird = 0;
+int soundStopperForFourth = 0;
+int soundStopperForFifth = 0;
+int soundStopperForSixth = 0;
+int soundStopperForSeventh = 0;
+int soundStopperForEight = 0;
+int soundStopperForNineth = 0;
+int soundStopperForTenth = 0;
+int soundStopperForEleventh = 0;
+int soundStopperForTwelfth = 0;
+int soundStopperForThirdteenth = 0;
+int soundStopperForFourthteenth = 0;
+int soundStopperForFifthteenth = 0;
+int soundStopperForSixteenth = 0;
+
+const int buzzer = 7; //Speaker pin
 // =============================================================
 // ==                            SETUP                        ==
 // =============================================================
 void setup() {
-
-pinMode(potDir, INPUT);
- 
+  
+  pinMode(potDir, INPUT);
+  pinMode(buzzer, OUTPUT);
   pinMode(enablePin, OUTPUT);
   pinMode(controlPin1, OUTPUT);
   pinMode(controlPin2, OUTPUT);
@@ -76,7 +95,7 @@ pinMode(potDir, INPUT);
 // ==                        MAIN LOOP                        ==
 // =============================================================
 void loop() {
- 
+
 // =============================================================
 // ==                   CHANGE MENU ITEM                      ==
 // =============================================================
@@ -92,6 +111,13 @@ void loop() {
 // ==                 Остановка всех режимов                  ==
 // =============================================================
 if(stateNum == 0){
+
+  /*if(soundStopperForFirst == 0){
+    soundStopperForFirst++;
+    tone(buzzer, 500, 250);
+    delay(250);
+    noTone(buzzer);
+  }*/
   analogWrite(enablePin,0);
   digitalWrite(controlPin1, LOW);
   digitalWrite(controlPin2, LOW);
