@@ -7,6 +7,8 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 const int enablePin=10;//Питание мотора
 const int controlPin1=2;//Мотор провод 1
 const int controlPin2=9;//Мотор провод 2
+//const int secondMotorPin1 = 21;// Мотор 2 провод 1
+//const int secondMotorPin2 = 23;// Мотор 2 провод 2
 const int potPin=A0;//PIN LEFT(Подключение потенциометра скорости)
 const int potDir=A1; //DIR RIGHT(Подключение потенциометра направления)
 int RC1;//Данные с потенциометра для "Переменное движение тележки"
@@ -67,6 +69,12 @@ int soundStopperForThirdteenth = 0;
 int soundStopperForFourthteenth = 0;
 int soundStopperForFifthteenth = 0;
 int soundStopperForSixteenth = 0;
+const int buttonRowFirstBtn = 15;
+const int buttonRowSecondBtn = 16;
+const int buttonRowThirdBtn = 17;
+const int buttonRowFourthBtn = 18;
+const int buttonRowFifthBtn = 19;
+const int buttonRowSixthBtn = 22;
 
 const int buzzer = 7; //Speaker pin
 // =============================================================
@@ -76,9 +84,14 @@ void setup() {
   
   pinMode(potDir, INPUT);
   pinMode(buzzer, OUTPUT);
+  
   pinMode(enablePin, OUTPUT);
   pinMode(controlPin1, OUTPUT);
   pinMode(controlPin2, OUTPUT);
+  
+  //pinMode(secondMotorPin1, OUTPUT);
+  //pinMode(secondMotorPin2, OUTPUT);
+  
   pinMode(stateButton1, INPUT);  
   digitalWrite(enablePin,HIGH);
  
@@ -112,15 +125,48 @@ void loop() {
 // =============================================================
 if(stateNum == 0){
 
-  /*if(soundStopperForFirst == 0){
+  if(soundStopperForFirst == 0){
     soundStopperForFirst++;
-    tone(buzzer, 500, 250);
-    delay(250);
+    tone(buzzer, 950, 50);
+    delay(50);
     noTone(buzzer);
-  }*/
+  }
+  if(digitalRead(buttonRowFirstBtn) == HIGH){
+      tone(buzzer, 950, 50);
+      delay(50);
+      noTone(buzzer);
+  }
+  if(digitalRead(buttonRowSecondBtn) == HIGH){
+      tone(buzzer, 1050, 100);
+      delay(100);
+      noTone(buzzer);
+  }
+  if(digitalRead(buttonRowThirdBtn) == HIGH){
+      tone(buzzer, 1150, 100);
+      delay(100);
+      noTone(buzzer);
+  }
+  if(digitalRead(buttonRowFourthBtn) == HIGH){
+      tone(buzzer, 1250, 100);
+      delay(100);
+      noTone(buzzer);
+  }
+  if(digitalRead(buttonRowFifthBtn) == HIGH){
+      tone(buzzer, 1350, 100);
+      delay(100);
+      noTone(buzzer);
+  }
+  if(digitalRead(buttonRowSixthBtn) == HIGH){
+      tone(buzzer, 1450, 100);
+      delay(100);
+      noTone(buzzer);
+  }
   analogWrite(enablePin,0);
   digitalWrite(controlPin1, LOW);
   digitalWrite(controlPin2, LOW);
+
+  //digitalWrite(secondMotorPin1 , HIGH);
+  //digitalWrite(secondMotorPin2 , LOW);
 }
 // =============================================================
 // ==                 Задача 1.  Движение к краю              ==
