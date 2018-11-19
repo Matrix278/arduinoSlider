@@ -2,13 +2,14 @@
 // ==                   DEFINE VARIABLES                      ==
 // =============================================================
 #include <LiquidCrystal.h>
-const int rs = 12, en = 11, d4 = 8, d5 = 6, d6 = 5, d7 = 1;//
+const int rs = 12, en = 11, d4 = 8, d5 = 6, d6 = 5, d7 = 28;//
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 const int enablePin=10;//Питание мотора
 const int controlPin1=2;//Мотор провод 1
 const int controlPin2=9;//Мотор провод 2
-//const int secondMotorPin1 = 21;// Мотор 2 провод 1
-//const int secondMotorPin2 = 23;// Мотор 2 провод 2
+const int secondMotorEnablePin = 25;//Питание второго мотора
+const int secondMotorPin1 = 26;// Мотор 2 провод 1
+const int secondMotorPin2 = 23;// Мотор 2 провод 2
 const int potPin=A0;//PIN LEFT(Подключение потенциометра скорости)
 const int potDir=A1; //DIR RIGHT(Подключение потенциометра направления)
 int RC1;//Данные с потенциометра для "Переменное движение тележки"
@@ -69,31 +70,35 @@ int soundStopperForThirdteenth = 0;
 int soundStopperForFourthteenth = 0;
 int soundStopperForFifthteenth = 0;
 int soundStopperForSixteenth = 0;
-const int buttonRowFirstBtn = 15;
-const int buttonRowSecondBtn = 16;
-const int buttonRowThirdBtn = 17;
-const int buttonRowFourthBtn = 18;
-const int buttonRowFifthBtn = 19;
-const int buttonRowSixthBtn = 22;
-
+const int buttonRowFirstBtn = 31;
+const int buttonRowSecondBtn = 32;
+const int buttonRowThirdBtn = 33;
+const int buttonRowFourthBtn = 34;
+const int buttonRowFifthBtn = 35;
+const int buttonRowSixthBtn = 36;
 const int buzzer = 7; //Speaker pin
+char val;
+int caseA;
+int caseB;
 // =============================================================
 // ==                            SETUP                        ==
 // =============================================================
 void setup() {
-  
+  Serial.begin(9600);
   pinMode(potDir, INPUT);
   pinMode(buzzer, OUTPUT);
   
   pinMode(enablePin, OUTPUT);
   pinMode(controlPin1, OUTPUT);
   pinMode(controlPin2, OUTPUT);
-  
-  //pinMode(secondMotorPin1, OUTPUT);
-  //pinMode(secondMotorPin2, OUTPUT);
+
+  pinMode(secondMotorEnablePin, OUTPUT);
+  pinMode(secondMotorPin1, OUTPUT);
+  pinMode(secondMotorPin2, OUTPUT);
   
   pinMode(stateButton1, INPUT);  
   digitalWrite(enablePin,HIGH);
+  digitalWrite(secondMotorEnablePin, HIGH);
  
    // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
@@ -103,7 +108,101 @@ void setup() {
   digitalWrite(controlPin2, LOW);
   analogWrite(enablePin,0);
   
+  digitalWrite(secondMotorPin1, LOW);
+  digitalWrite(secondMotorPin2, LOW);
+  analogWrite(secondMotorEnablePin,0);
+  
 }
+// =============================================================
+// ==                        PARSE COMMAND                    ==
+// =============================================================
+void parseCommand(char input) {//Функция для получения данных с устройства подключенным по bluetooth
+  switch (input) {
+    case 'a': // LEFT
+      analogWrite(enablePin, 250);//Включение первого мотора на скорости 250(маленький)
+      digitalWrite(controlPin1, HIGH);
+      digitalWrite(controlPin2, LOW);
+      
+       caseA = 1;
+       caseB = 0;
+      
+      break;
+    case 'b': // UP
+       analogWrite(secondMotorEnablePin, 250);//Включение второго мотора на скорости 250(большой)
+       digitalWrite(secondMotorPin1 , HIGH);
+       digitalWrite(secondMotorPin2 , LOW);
+       
+       caseA = 0;
+       caseB = 1;
+      break;
+    case '1': //TOP ARROW
+      if(caseA == 1 && caseB == 0){
+         analogWrite(enablePin, 250);//Включение первого мотора на скорости 250(маленький)
+         digitalWrite(controlPin1 , LOW);
+         digitalWrite(controlPin2 , HIGH);
+      }else if(caseA == 0 && caseB == 1){
+        analogWrite(secondMotorEnablePin, 250);//Включение второго мотора на скорости 250(большой)
+        digitalWrite(secondMotorPin1, LOW);
+        digitalWrite(secondMotorPin2, HIGH);
+      }else{
+        analogWrite(enablePin, 0);//Выключение первого мотора(маленький)
+        digitalWrite(controlPin1, LOW);
+        digitalWrite(controlPin2, LOW);
+
+        analogWrite(secondMotorEnablePin, 0);//Выключение второго мотора(большой)
+        digitalWrite(secondMotorPin1 , LOW);
+        digitalWrite(secondMotorPin2 , LOW);
+
+        caseA = 0;
+        caseB = 0;
+      }
+      
+      break;
+    case '2': // DOWN ARROW
+        if(caseA == 1 && caseB == 0){
+            analogWrite(enablePin, 250);//Включение первого мотора на скорости 250(маленький)
+            digitalWrite(controlPin1 , HIGH);
+            digitalWrite(controlPin2 , LOW);
+        }else if(caseA == 0 && caseB == 1){
+            analogWrite(secondMotorEnablePin, 250);//Включение второго мотора на скорости 250(большой)
+            digitalWrite(secondMotorPin1, HIGH);
+            digitalWrite(secondMotorPin2, LOW);
+        }else{
+            analogWrite(enablePin, 0);//Выключение первого мотора(маленький)
+            digitalWrite(controlPin1, LOW);
+            digitalWrite(controlPin2, LOW);
+        
+            analogWrite(secondMotorEnablePin, 0);//Выключение второго мотора(большой)
+            digitalWrite(secondMotorPin1 , LOW);
+            digitalWrite(secondMotorPin2 , LOW);
+            
+             caseA = 0;
+             caseB = 0;
+        }
+              
+        break;
+    case 'c': // SELECT
+      analogWrite(enablePin, 0);//Выключение первого мотора(маленький)
+      digitalWrite(controlPin1, LOW);
+      digitalWrite(controlPin2, LOW);
+        
+      analogWrite(secondMotorEnablePin, 0);//Выключение второго мотора(большой)
+      digitalWrite(secondMotorPin1 , LOW);
+      digitalWrite(secondMotorPin2 , LOW);
+
+      caseA = 0;
+      caseB = 0;
+      break;
+    case 's': // SQUARE
+       lcd.setCursor(0, 1);//Вывод на экран команды с
+       lcd.print("                  ");
+       lcd.setCursor(0, 1);
+       lcd.print("Command: s");
+       delay(2000);
+      break; 
+  }
+}
+
 // =============================================================
 // ==                        MAIN LOOP                        ==
 // =============================================================
@@ -115,7 +214,7 @@ void loop() {
   if(digitalRead(stateButton1) == HIGH && stateButtonAction == 0){
     stateButtonAction = 1;
     stateNum++;
-    if(stateNum > 16){stateNum = 0;}
+    if(stateNum > 17){stateNum = 0;}
   }
   if(digitalRead(stateButton1) == LOW && stateButtonAction == 1){
     stateButtonAction = 0;
@@ -124,13 +223,25 @@ void loop() {
 // ==                 Остановка всех режимов                  ==
 // =============================================================
 if(stateNum == 0){
+    analogWrite(enablePin, 0);
+    digitalWrite(controlPin1, LOW);
+    digitalWrite(controlPin2, LOW);
 
-  if(soundStopperForFirst == 0){
+    analogWrite(secondMotorEnablePin, 0);
+    digitalWrite(secondMotorPin1 , LOW);
+    digitalWrite(secondMotorPin2 , LOW);
+    
+  if (Serial.available()) {
+    val=Serial.read(); 
+    Serial.println(val); // Use the IDE's Tools > Serial Monitor
+    parseCommand(val);
+  }
+  /*if(soundStopperForFirst == 0){
     soundStopperForFirst++;
     tone(buzzer, 950, 50);
     delay(50);
     noTone(buzzer);
-  }
+  }*/
   if(digitalRead(buttonRowFirstBtn) == HIGH){
       tone(buzzer, 950, 50);
       delay(50);
@@ -161,12 +272,15 @@ if(stateNum == 0){
       delay(100);
       noTone(buzzer);
   }
-  analogWrite(enablePin,0);
-  digitalWrite(controlPin1, LOW);
+  /*
+  analogWrite(enablePin, 100);
+  digitalWrite(controlPin1, HIGH);
   digitalWrite(controlPin2, LOW);
 
-  //digitalWrite(secondMotorPin1 , HIGH);
-  //digitalWrite(secondMotorPin2 , LOW);
+  analogWrite(secondMotorEnablePin, 500);
+  digitalWrite(secondMotorPin1 , HIGH);
+  digitalWrite(secondMotorPin2 , LOW);
+  */
 }
 // =============================================================
 // ==                 Задача 1.  Движение к краю              ==
@@ -265,7 +379,8 @@ if(stateNum == 3){
   lcd.setCursor(0, 1);
   lcd.print("                 ");
   valuePotPin = analogRead(potPin);
-  valuePotPin = map(valuePotPin, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
+  //valuePotPin = map(valuePotPin, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
+  valuePotPin = map(valuePotPin, 10, 940, 0, 100); //Map value 0-1023 to 0-255 (PWM)
   valuePotDir = analogRead(potDir);
   valuePotDir = map(valuePotDir, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
   analogWrite(enablePin, valuePotPin);
@@ -344,15 +459,15 @@ if(stateNum == 5){
      digitalWrite(controlPin1, LOW);
      digitalWrite(controlPin2, LOW);
     }
-  switchStateForLeft = digitalRead(switchPinLeft);
-  switchStateForRight = digitalRead(switchPinRight);
-  if(switchStateForLeft == HIGH || switchStateForRight == HIGH){
-       analogWrite(enablePin,0);
-       digitalWrite(controlPin1, LOW);
-       digitalWrite(controlPin2, LOW);
-       fatalStopperForFifth = 1;
-   }
-  if(fatalStopperForFifth != 1){
+    switchStateForLeft = digitalRead(switchPinLeft);
+    switchStateForRight = digitalRead(switchPinRight);
+    if(switchStateForLeft == HIGH || switchStateForRight == HIGH){
+         analogWrite(enablePin,0);
+         digitalWrite(controlPin1, LOW);
+         digitalWrite(controlPin2, LOW);
+         fatalStopperForFifth = 1;
+    }
+
     lcd.setCursor(0, 1);
     lcd.print("                 ");
     valuePotPinFive = analogRead(potPin);
@@ -379,7 +494,7 @@ if(stateNum == 5){
         digitalWrite(controlPin2, HIGH);
       }    
     }
-  }
+  
 
   lcd.setCursor(0, 1);
   lcd.print(valuePotDirFive);
@@ -880,8 +995,13 @@ if(stateNum == 16){
     lcd.print("                ");
     lcd.setCursor(0, 1);
     lcd.print(valuePotDirSix);    
-
-
+}
+if(stateNum == 17){
+    if (Serial.available()) {
+    val=Serial.read(); 
+    Serial.println(val); // Use the IDE's Tools > Serial Monitor
+    parseCommand(val);
+  }
 }
 // =============================================================
 // ==                        MAIN MENU                        ==
@@ -994,6 +1114,13 @@ if(stateNum == 0){
   lcd.print("                ");
   lcd.setCursor(0, 0);
   lcd.print("R:Delta");
+  lcd.setCursor(0, 1);
+  //lcd.print("                ");
+ }else if(stateNum == 17){
+   lcd.setCursor(0, 0);
+  lcd.print("                ");
+  lcd.setCursor(0, 0);
+  lcd.print("R:2MM"); //Движение двух моторов
   lcd.setCursor(0, 1);
   //lcd.print("                ");
  }else{
