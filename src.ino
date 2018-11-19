@@ -119,7 +119,7 @@ void setup() {
 void parseCommand(char input) {//Функция для получения данных с устройства подключенным по bluetooth
   switch (input) {
     case 'a': // LEFT
-      analogWrite(enablePin, 250);//Включение первого мотора на скорости 250(маленький)
+      analogWrite(enablePin, 100);//Включение первого мотора на скорости 250(маленький)
       digitalWrite(controlPin1, HIGH);
       digitalWrite(controlPin2, LOW);
       
@@ -128,7 +128,7 @@ void parseCommand(char input) {//Функция для получения дан
       
       break;
     case 'b': // UP
-       analogWrite(secondMotorEnablePin, 250);//Включение второго мотора на скорости 250(большой)
+       analogWrite(secondMotorEnablePin, 200);//Включение второго мотора на скорости 250(большой)
        digitalWrite(secondMotorPin1 , HIGH);
        digitalWrite(secondMotorPin2 , LOW);
        
@@ -137,11 +137,11 @@ void parseCommand(char input) {//Функция для получения дан
       break;
     case '1': //TOP ARROW
       if(caseA == 1 && caseB == 0){
-         analogWrite(enablePin, 250);//Включение первого мотора на скорости 250(маленький)
+         analogWrite(enablePin, 100);//Включение первого мотора на скорости 250(маленький)
          digitalWrite(controlPin1 , LOW);
          digitalWrite(controlPin2 , HIGH);
       }else if(caseA == 0 && caseB == 1){
-        analogWrite(secondMotorEnablePin, 250);//Включение второго мотора на скорости 250(большой)
+        analogWrite(secondMotorEnablePin, 200);//Включение второго мотора на скорости 250(большой)
         digitalWrite(secondMotorPin1, LOW);
         digitalWrite(secondMotorPin2, HIGH);
       }else{
@@ -160,11 +160,11 @@ void parseCommand(char input) {//Функция для получения дан
       break;
     case '2': // DOWN ARROW
         if(caseA == 1 && caseB == 0){
-            analogWrite(enablePin, 250);//Включение первого мотора на скорости 250(маленький)
+            analogWrite(enablePin, 100);//Включение первого мотора на скорости 250(маленький)
             digitalWrite(controlPin1 , HIGH);
             digitalWrite(controlPin2 , LOW);
         }else if(caseA == 0 && caseB == 1){
-            analogWrite(secondMotorEnablePin, 250);//Включение второго мотора на скорости 250(большой)
+            analogWrite(secondMotorEnablePin, 200);//Включение второго мотора на скорости 250(большой)
             digitalWrite(secondMotorPin1, HIGH);
             digitalWrite(secondMotorPin2, LOW);
         }else{
@@ -336,7 +336,7 @@ if(stateNum == 2){
   lcd.setCursor(0, 1);
   lcd.print("                 ");
   valuePotPin = analogRead(potPin);
-  valuePotPin = map(valuePotPin, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
+  valuePotPin = map(valuePotPin, 10, 940, 0, 100); //Map value 0-1023 to 0-255 (PWM)
   valuePotDir = analogRead(potDir);
   valuePotDir = map(valuePotDir, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
   analogWrite(enablePin, valuePotPin);
@@ -380,9 +380,9 @@ if(stateNum == 3){
   lcd.print("                 ");
   valuePotPin = analogRead(potPin);
   //valuePotPin = map(valuePotPin, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
-  valuePotPin = map(valuePotPin, 10, 940, 0, 100); //Map value 0-1023 to 0-255 (PWM)
+  valuePotPin = map(valuePotPin, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
   valuePotDir = analogRead(potDir);
-  valuePotDir = map(valuePotDir, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
+  valuePotDir = map(valuePotDir, 10, 940, 0, 100); //Map value 0-1023 to 0-255 (PWM)
   analogWrite(enablePin, valuePotPin);
   lcd.setCursor(0, 1);
   if(valuePotDir < 5){
@@ -415,7 +415,7 @@ if(stateNum == 4){
   valuePotPin = analogRead(potPin);
   valuePotPin = map(valuePotPin, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
   valuePotDir = analogRead(potDir);
-  valuePotDir = map(valuePotDir, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
+  valuePotDir = map(valuePotDir, 10, 940, 0, 100); //Map value 0-1023 to 0-255 (PWM)
   analogWrite(enablePin, valuePotPin);
   lcd.setCursor(0, 1);
   if(valuePotDir < 5){
@@ -473,7 +473,7 @@ if(stateNum == 5){
     valuePotPinFive = analogRead(potPin);
     valuePotPinFive = map(valuePotPinFive, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
     valuePotDirFive = analogRead(potDir);
-    valuePotDirFive = map(valuePotDirFive, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
+    valuePotDirFive = map(valuePotDirFive, 10, 940, 0, 100); //Map value 0-1023 to 0-255 (PWM)
     analogWrite(enablePin, valuePotPinFive);
     lcd.setCursor(0, 1);
     if(valuePotDirFive < 5){
@@ -513,7 +513,7 @@ if(stateNum == 7){
   //valuePotPin = analogRead(potPin);
   //valuePotPin = map(valuePotPin, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
   valuePotDirForSeventh = analogRead(potDir);
-  valuePotDirForSeventh = map(valuePotDirForSeventh, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
+  valuePotDirForSeventh = map(valuePotDirForSeventh, 10, 940, 0, 100); //Map value 0-1023 to 0-255 (PWM)
   delay(100);
   lcd.setCursor(0, 1);
   lcd.print("                 ");
@@ -562,7 +562,7 @@ if(stateNum == 8){
   //valuePotPin = analogRead(potPin);
   //valuePotPin = map(valuePotPin, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
   valuePotDirForEight = analogRead(potDir);
-  valuePotDirForEight = map(valuePotDirForEight, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
+  valuePotDirForEight = map(valuePotDirForEight, 10, 940, 0, 100); //Map value 0-1023 to 0-255 (PWM)
   delay(100);
   lcd.setCursor(0, 1);
   lcd.print("                 ");
@@ -697,7 +697,7 @@ if(stateNum == 11){
    lcd.setCursor(0, 1);
    lcd.print("                 ");
    value = analogRead(potDir);          //Read and save analog value from potentiometer
-   value = map(value, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
+   value = map(value, 10, 940, 0, 100); //Map value 0-1023 to 0-255 (PWM)
    lcd.setCursor(0, 1);
    if(value < 0){
     value = 0;
@@ -715,12 +715,12 @@ if(stateNum == 11){
 // =============================================================
 if(stateNum == 12){
    valueFor12First = analogRead(potDir);          //Read and save analog value from potentiometer
-   valueFor12First = map(valueFor12First, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
+   valueFor12First = map(valueFor12First, 10, 940, 0, 100); //Map value 0-1023 to 0-255 (PWM)
    delay(200);
    lcd.setCursor(0, 1);
    lcd.print("                  ");
    valueFor12Second = analogRead(potDir);          //Read and save analog value from potentiometer
-   valueFor12Second = map(valueFor12Second, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
+   valueFor12Second = map(valueFor12Second, 10, 940, 0, 100); //Map value 0-1023 to 0-255 (PWM)
 
    differenceFor12 = valueFor12First-valueFor12Second;
    //Закоментированы строчки которые, крутят мотор в ту сторону которая показана
@@ -789,7 +789,7 @@ if(stateNum == 14){
     lcd.setCursor(0, 1);
     lcd.print(valueFor15First);
    valueFor15First = analogRead(potDir);          //Read and save analog value from potentiometer
-   valueFor15First = map(valueFor15First, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
+   valueFor15First = map(valueFor15First, 10, 940, 0, 100); //Map value 0-1023 to 0-255 (PWM)
    if(valueFor15First < 8){
     valueFor15First = 0;
    }else if(valueFor15First > 92){
@@ -851,7 +851,7 @@ if(stateNum == 15){
   switchStateForLeft = digitalRead(switchPinLeft);
   switchStateForRight = digitalRead(switchPinRight);
   valueFor16First = analogRead(potDir);          //Read and save analog value from potentiometer
-  valueFor16First = map(valueFor16First, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
+  valueFor16First = map(valueFor16First, 10, 940, 0, 100); //Map value 0-1023 to 0-255 (PWM)
   if(valueFor16First < 3){
     valueFor16First = 0;
   }else if(valueFor16First > 99){
@@ -931,7 +931,7 @@ if(stateNum == 16){
     int V2 = 55;
     int valuePotDirSix;
     valuePotDirSix = analogRead(potDir);
-    valuePotDirSix = map(valuePotDirSix, 0, 1023, -5.5, 104); //Map value 0-1023 to 0-255 (PWM)
+    valuePotDirSix = map(valuePotDirSix, 10, 940, 0, 100); //Map value 0-1023 to 0-255 (PWM)
     if(valuePotDirSix < 5){
       valuePotDirSix = 0;
     }else if(valuePotDirSix > 95){
